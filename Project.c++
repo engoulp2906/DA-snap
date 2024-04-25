@@ -918,3 +918,253 @@ void login_system::modify()
     system("pause");
     menu();
 }
+void login_system::modify()
+{
+    system("cls");
+    cout << "\n\t\t\t\t ___________________________________________\n";
+    cout << "\t\t\t\t|                                           |";
+    cout << "\n\t\t\t\t|              MODIFY ACCOUNT               |" << endl;
+    cout << "\t\t\t\t|___________________________________________|" << endl
+         << endl;
+    fstream file, file1;
+    file.open("files", ios::in);
+    file1.open("modify", ios::app | ios::out);
+    file >> fname >> password >> number >> email >> date >> month >> year;
+    while (!file.eof())
+    {
+        if (name == fname && pass == password)
+        {
+            cout << "\t\t\t\t\tEnter User_Name: " << endl
+                 << "\t\t\t\t\t";
+            cin >> fname;
+            cout << endl
+                 << "\t\t\t\t\tEnter your Date of Birth- " << endl
+                 << "\t\t\t\t\tDay :  ";
+            cin >> date;
+            cout << "\t\t\t\t\tMonth : ";
+            cin >> month;
+            cout << "\t\t\t\t\tYear :  ";
+            cin >> year;
+            cout << endl
+                 << "\t\t\t\t\tEnter your Contact Details: " << endl
+                 << "\t\t\t\t\tPhone Number : ";
+            cin >> number;
+            cout << endl
+                 << "\t\t\t\t\tEnter Email Address: " << endl
+                 << "\t\t\t\t\t";
+            cin >> email;
+            file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+        }
+        else
+        {
+            file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+        }
+        file >> fname >> password >> number >> email >> date >> month >> year;
+    }
+    cout << endl
+         << "\t\t\t\t\tSaving new details, Please wait . . ." << endl
+         << "\t\t\t\t\t";
+    waiting();
+    file.close();
+    file1.close();
+    remove("files");
+    rename("modify", "files");
+    cout << endl
+         << "\n\t\t\t\t\tAccount Details Saved Successfully." << endl;
+    cout << "\t\t\t\t\tChanges will be shown after Re-login." << endl
+         << "\n\t\t\t\t\t";
+    system("pause");
+    menu();
+}
+void login_system::change_password()
+{
+    system("cls");
+    cout << "\n\t\t\t\t ___________________________________________\n";
+    cout << "\t\t\t\t|                                           |";
+    cout << "\n\t\t\t\t|              CHANGE PASSWORD              |" << endl;
+    cout << "\t\t\t\t|___________________________________________|" << endl
+         << endl;
+    string oldpass, newpass, confirmpass;
+    cout << "\t\t\t\t\tEnter your Old Password: ";
+    cin >> oldpass;
+    if (oldpass == pass)
+    {
+        cout << endl
+             << "\t\t\t\t\tEnter New Password: ";
+        char ch;
+        newpass = "";
+        ch = _getch();
+        while (ch != 13)
+        {
+            if (ch == '\b')
+            {
+                if (!newpass.empty())
+                {
+                    cout << "\b \b";
+                    newpass.pop_back();
+                }
+            }
+            else
+            {
+                if (newpass.length() < 18)
+                {
+                    newpass.push_back(ch);
+                    cout << '*';
+                }
+            }
+            ch = _getch();
+        }
+
+        cout << endl
+             << "\t\t\t\t\tConfirm New Password: ";
+        ch = _getch();
+        confirmpass = "";
+        while (ch != 13)
+        {
+            if (ch == '\b')
+            {
+                if (!confirmpass.empty())
+                {
+                    cout << "\b \b";
+                    confirmpass.pop_back();
+                }
+            }
+            else
+            {
+                if (confirmpass.length() < 18)
+                {
+                    confirmpass.push_back(ch);
+                    cout << '*';
+                }
+            }
+            ch = _getch();
+        }
+
+        if (newpass == oldpass)
+        {
+            cout << endl
+                 << "\t\t\t\t\tOld and New Password can't be the same.";
+        }
+        else if (confirmpass != newpass)
+        {
+            cout << endl
+                 << "\t\t\t\t\tError! Passwords do not match." << endl
+                 << "\t\t\t\t\tPlease try again.";
+            Sleep(636);
+            change_password();
+        }
+        else
+        {
+            fstream file, file1;
+            file.open("files", ios::in);
+            file1.open("modify", ios::app | ios::out);
+            file >> fname >> password >> number >> email >> date >> month >> year;
+            while (!file.eof())
+            {
+                if (name == fname && pass == oldpass)
+                {
+                    file1 << fname << " " << newpass << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+                }
+                else
+                {
+                    file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+                }
+                file >> fname >> password >> number >> email >> date >> month >> year;
+            }
+            cout << endl
+                 << "\t\t\t\t\tChanging Password, Please wait . . ." << endl
+                 << "\t\t\t\t\t";
+            waiting();
+            cout << endl
+                 << "\n\t\t\t\t\tPassword changed successfully." << endl;
+            cout << endl
+                 << "\t\t\t\t\tChanges will be shown after Re-login." << endl;
+            file.close();
+            file1.close();
+            remove("files");
+            rename("modify", "files");
+        }
+    }
+    else
+    {
+        cout << endl
+             << "\t\t\t\t\tError! Wrong Password" << endl;
+    }
+    cout << endl
+         << "\t\t\t\t\t";
+    system("pause");
+    menu();
+}
+
+void login_system::delete_account()
+{
+    system("cls");
+    cout << "\n\t\t\t\t ___________________________________________\n";
+    cout << "\t\t\t\t|                                           |";
+    cout << "\n\t\t\t\t|              DELETE ACCOUNT               |" << endl;
+    cout << "\t\t\t\t|___________________________________________|" << endl
+         << endl;
+    cout << "\t\t\t\t\tAre you sure want to delete account ?" << endl;
+    cout << "\t\t\t\t\tThis action can't be undone!" << endl;
+    cout << "\t\t\t\t\tY/N: ";
+    char x;
+    cin >> x;
+    if (x == 'y' || x == 'Y')
+    {
+        fstream file, file1;
+        file.open("files", ios::in);
+        file1.open("modify", ios::app | ios::out);
+        file >> fname >> password >> number >> email >> date >> month >> year;
+        while (!file.eof())
+        {
+            if (name == fname && pass == password)
+            {
+                //                file>>fname>>password>>number>>email>>date>>month>>year;
+            }
+            else
+            {
+                file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+            }
+            file >> fname >> password >> number >> email >> date >> month >> year;
+        }
+        cout << endl
+             << "\t\t\t\t\tDeleting Account . . ." << endl
+             << "\t\t\t\t\t";
+        waiting();
+        cout << endl
+             << "\n\t\t\t\t\tAccount Deleted Successfully." << endl;
+        cout << endl
+             << "\t\t\t\t\tLogging you out . . ." << endl
+             << "\t\t\t\t\t";
+        waiting();
+        file.close();
+        file1.close();
+        remove("files");
+        rename("modify", "files");
+        homepage();
+    }
+    else if (x == 'N' || x == 'n')
+    {
+        cout << endl
+             << "\t\t\t\t\tTaking you back to Main Menu" << endl
+             << "\t\t\t\t\t";
+        waiting();
+        Sleep(636);
+        menu();
+    }
+    else
+    {
+        cout << "\t\t\t\t\tPlease select a valid option." << endl;
+        system("pause");
+        delete_account();
+    }
+}
+
+int main()
+{
+    login_system x;
+    initializeAccounts();
+    x.homepage();
+
+    return 0;
+}
