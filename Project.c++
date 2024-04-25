@@ -607,3 +607,314 @@ void applyForLoan() {
     }
     cout << "Account not found." << endl;
 }
+// Function to check credit score of an account
+void checkCreditScore() {
+    string accNum;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i) {
+        if (accounts[i].accountNumber == accNum) {
+            cout << "Credit Score: " << accounts[i].creditScore << endl;
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+// Function to purchase insurance
+void purchaseInsurance() {
+    string accNum;
+    double coverage, premium;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i) {
+        if (accounts[i].accountNumber == accNum) {
+            if (accounts[i].hasInsurance) {
+                cout << "Insurance policy already purchased for this account." << endl;
+            } else {
+                cout << "Enter Policy Number: ";
+                cin >> accounts[i].policyNumber;
+                cout << "Enter Coverage Amount: ";
+                cin >> coverage;
+                cout << "Enter Premium: ";
+                cin >> premium;
+                accounts[i].hasInsurance = true;
+                accounts[i].coverageAmount = coverage;
+                accounts[i].premium = premium;
+                cout << "Insurance policy purchased successfully." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+// Function to check insurance policy details
+void checkInsurancePolicy() {
+    string accNum;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i) {
+        if (accounts[i].accountNumber == accNum) {
+            if (accounts[i].hasInsurance) {
+                cout << "Policy Number: " << accounts[i].policyNumber << endl;
+                cout << "Coverage Amount: " << accounts[i].coverageAmount << endl;
+                cout << "Premium: " << accounts[i].premium << endl;
+            } else {
+                cout << "No insurance policy purchased for this account." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+// Function to make insurance claim
+void makeInsuranceClaim() {
+    string accNum;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i) {
+        if (accounts[i].accountNumber == accNum) {
+            if (accounts[i].hasInsurance) {
+                if (!accounts[i].hasClaimedInsurance) {
+                    // Process claim (For demonstration, just setting a flag)
+                    accounts[i].hasClaimedInsurance = true;
+                    cout << "Insurance claim processed successfully." << endl;
+                } else {
+                    cout << "Insurance claim already processed for this account." << endl;
+                }
+            } else {
+                cout << "No insurance policy purchased for this account." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+void displayBankingMenu()
+{
+    login_system ls;
+    system("cls");
+    cout << "\n\t\t\t\t __________________________________________________\n";
+    cout << "\t\t\t\t|                                                  |";
+    cout << "\n\t\t\t\t|                 Banking Portal                   |" << endl;
+    cout << "\t\t\t\t|__________________________________________________|" << endl
+         << endl
+         << endl;
+    cout << "\t\t\t\t\tKindly select an option below:" << endl
+         << endl;
+    cout << "\t\t\t\t\t1. Create Account" << endl
+         << endl;
+    cout << "\t\t\t\t\t2. Check Balance" << endl
+         << endl;
+    cout << "\t\t\t\t\t3. Deposit Money " << endl
+         << endl;
+    cout << "\t\t\t\t\t4. Transfer Money" << endl
+         << endl;
+    cout << "\t\t\t\t\t5. Apply for Loan" << endl
+         << endl;
+    cout << "\t\t\t\t\t6. Check Credit Score" << endl
+         << endl;
+    cout << "\t\t\t\t\t7. Purchase Insurance" << endl
+         << endl;
+    cout << "\t\t\t\t\t8. Check Insurance Policy" << endl
+         << endl;
+    cout << "\t\t\t\t\t9. Make Insurance Claim" << endl
+         << endl;
+    cout << "\t\t\t\t\t10. Exit" << endl;
+    cout << endl;
+    int choice;
+    do {
+        cout<<"\n\n";
+        cout << "\t\t\t\t\tKindly select an option below: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                createBankAccount();
+                break;
+            case 2:
+                checkBalance();
+                break;
+            case 3:
+                depositMoney();
+                break;
+            case 4:
+                transferMoney();
+                break;
+            case 5:
+                applyForLoan();
+                break;
+            case 6:
+                checkCreditScore();
+                break;
+            case 7:
+                purchaseInsurance();
+                break;
+            case 8:
+                checkInsurancePolicy();
+                break;
+            case 9:
+                makeInsuranceClaim();
+                break;
+            case 10:
+                cout << "\n\t\t\t\t\tLogging Out Of Banking Portal . . ." << endl<< "\t\t\t\t\t";
+                ls.menu();
+            default:
+                cout << "\t\t\t\t\tInvalid Option\n\t\t\t\t\tTry Again." << endl;
+        }
+    } while (choice != 10); 
+}
+void login_system::menu()
+{
+    system("cls");
+    cout << "\n\t\t\t\t __________________________________________________\n";
+    cout << "\t\t\t\t|                                                  |";
+    cout << "\n\t\t\t\t|                 ACCOUNT MANAGMENT                |" << endl;
+    cout << "\t\t\t\t|__________________________________________________|" << endl
+         << endl
+         << endl;
+    cout << "\t\t\t\t\tKindly select an option below:" << endl
+         << endl;
+    cout << "\t\t\t\t\t1. Account Details" << endl
+         << endl;
+    cout << "\t\t\t\t\t2. Modify Account" << endl
+         << endl;
+    cout << "\t\t\t\t\t3. Open Banking Portal " << endl
+         << endl;
+    cout << "\t\t\t\t\t4. Change Password" << endl
+         << endl;
+    cout << "\t\t\t\t\t5. Delete Account" << endl
+         << endl;
+    cout << "\t\t\t\t\t6. Logout" << endl;
+    char option;
+    cout << endl
+         << "\t\t\t\t\t-> ";
+    cin >> option;
+    switch (option)
+    {
+    case '1':
+        details();
+        break;
+    case '2':
+        modify();
+        break;
+    case '3':
+        displayBankingMenu();
+        break;
+    case '4':
+        change_password();
+    case '5':
+        delete_account();
+    case '6':
+    {
+        cout << "\n\t\t\t\t\tLogging Out . . ." << endl
+             << "\t\t\t\t\t";
+        waiting();
+        homepage();
+    }
+    default:
+        cout << "\t\t\t\t\tInvalid Option\n\t\t\t\t\tTry Again." << endl;
+        Sleep(636);
+        menu();
+    }
+}
+void login_system::details()
+{
+    system("cls");
+    cout << "\n\t\t\t\t ___________________________________________\n";
+    cout << "\t\t\t\t|                                           |";
+    cout << "\n\t\t\t\t|              ACCOUNT DETAILS              |" << endl;
+    cout << "\t\t\t\t|___________________________________________|" << endl
+         << endl;
+    fstream file;
+    file.open("files", ios::in);
+    file >> fname >> password >> number >> email >> date >> month >> year;
+    while (!file.eof())
+    {
+        if (name == fname && password == pass)
+        {
+            Sleep(66);
+            cout << endl
+                 << "\t\t\t\t\t1. User_Name = " << fname << endl
+                 << endl;
+            Sleep(66);
+            cout << "\t\t\t\t\t2. Email = " << email << endl
+                 << endl;
+            Sleep(66);
+            cout << "\t\t\t\t\t3. Contact = " << number << endl
+                 << endl;
+            Sleep(66);
+            cout << "\t\t\t\t\t4. Date of Birth = " << date << "/" << month << "/" << year << endl
+                 << endl;
+            Sleep(66);
+            cout << "\t\t\t\t\t5. Account Password = " << password << endl
+                 << endl;
+            break;
+        }
+        file >> fname >> password >> number >> email >> date >> month >> year;
+    }
+    file.close();
+    cout << "\t\t\t\t\t";
+    system("pause");
+    menu();
+}
+void login_system::modify()
+{
+    system("cls");
+    cout << "\n\t\t\t\t ___________________________________________\n";
+    cout << "\t\t\t\t|                                           |";
+    cout << "\n\t\t\t\t|              MODIFY ACCOUNT               |" << endl;
+    cout << "\t\t\t\t|___________________________________________|" << endl
+         << endl;
+    fstream file, file1;
+    file.open("files", ios::in);
+    file1.open("modify", ios::app | ios::out);
+    file >> fname >> password >> number >> email >> date >> month >> year;
+    while (!file.eof())
+    {
+        if (name == fname && pass == password)
+        {
+            cout << "\t\t\t\t\tEnter User_Name: " << endl
+                 << "\t\t\t\t\t";
+            cin >> fname;
+            cout << endl
+                 << "\t\t\t\t\tEnter your Date of Birth- " << endl
+                 << "\t\t\t\t\tDay :  ";
+            cin >> date;
+            cout << "\t\t\t\t\tMonth : ";
+            cin >> month;
+            cout << "\t\t\t\t\tYear :  ";
+            cin >> year;
+            cout << endl
+                 << "\t\t\t\t\tEnter your Contact Details: " << endl
+                 << "\t\t\t\t\tPhone Number : ";
+            cin >> number;
+            cout << endl
+                 << "\t\t\t\t\tEnter Email Address: " << endl
+                 << "\t\t\t\t\t";
+            cin >> email;
+            file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+        }
+        else
+        {
+            file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
+        }
+        file >> fname >> password >> number >> email >> date >> month >> year;
+    }
+    cout << endl
+         << "\t\t\t\t\tSaving new details, Please wait . . ." << endl
+         << "\t\t\t\t\t";
+    waiting();
+    file.close();
+    file1.close();
+    remove("files");
+    rename("modify", "files");
+    cout << endl
+         << "\n\t\t\t\t\tAccount Details Saved Successfully." << endl;
+    cout << "\t\t\t\t\tChanges will be shown after Re-login." << endl
+         << "\n\t\t\t\t\t";
+    system("pause");
+    menu();
+}
