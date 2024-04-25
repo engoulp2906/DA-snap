@@ -1,6 +1,6 @@
 # DA-snap
 
-**DESCRIPTION: **
+**DESCRIPTION:**
 • This C++ program is a simple login and authentication system that allows users to create accounts, login, list all accounts, search for accounts by name, modify account details, change passwords, and delete accounts. • The program consists of several classes (login_system, CreateAcc, LoginPage, ListAccount, SearchAccount) that handle different functionalities of the system. 
 • Users can create accounts by providing a unique username, contact details, email address, and date of birth. Password creation is also included with basic validation. 
 • Authentication is done through a login page where users enter their username and password. The system verifies the credentials against the stored data. 
@@ -9,7 +9,7 @@
 
 
 
-**UNIQUE FEATURES: **
+**UNIQUE FEATURES:**
 1. Password Masking: 
 When users enter their password, it's masked with asterisks for privacy and security. This feature enhances the confidentiality of user credentials. 
 2. Account Creation with Unique Details: 
