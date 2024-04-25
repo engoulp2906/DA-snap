@@ -1147,3 +1147,12 @@ void login_system::delete_account()
         delete_account();
     }
 }
+
+int main()
+{
+    login_system x;
+    initializeAccounts();
+    x.homepage();
+
+    return 0;
+}
