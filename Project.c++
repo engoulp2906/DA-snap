@@ -581,3 +581,288 @@ void transferMoney()
             receiverIndex = i;
         }
     }
+    if (senderIndex != -1 && receiverIndex != -1)
+    {
+        if (accounts[senderIndex].balance >= amount)
+        {
+            accounts[senderIndex].balance -= amount;
+            accounts[receiverIndex].balance += amount;
+            cout << "Transfer successful." << endl;
+            cout << "Sender's Updated Balance: " << accounts[senderIndex].balance << endl;
+            cout << "Receiver's Updated Balance: " << accounts[receiverIndex].balance << endl;
+        }
+        else
+        {
+            cout << "Insufficient balance in the sender's account." << endl;
+        }
+    }
+    else
+    {
+        cout << "One or both accounts not found." << endl;
+    }
+}
+
+void applyForLoan()
+{
+    string accNum;
+    double loanAmount;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i)
+    {
+        if (accounts[i].accountNumber == accNum)
+        {
+            cout << "Enter Loan Amount: ";
+            cin >> loanAmount;
+
+            if (accounts[i].creditScore >= 650)
+            {
+                accounts[i].balance += loanAmount;
+                cout << "Loan approved. Updated balance: " << accounts[i].balance << endl;
+            }
+            else
+            {
+                cout << "Loan application rejected due to low credit score." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+void checkCreditScore()
+{
+    string accNum;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i)
+    {
+        if (accounts[i].accountNumber == accNum)
+        {
+            cout << "Credit Score: " << accounts[i].creditScore << endl;
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+void purchaseInsurance()
+{
+    string accNum;
+    double coverage, premium;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i)
+    {
+        if (accounts[i].accountNumber == accNum)
+        {
+            if (accounts[i].hasInsurance)
+            {
+                cout << "Insurance policy already purchased for this account." << endl;
+            }
+            else
+            {
+                cout << "Enter Policy Number: ";
+                cin >> accounts[i].policyNumber;
+                cout << "Enter Coverage Amount: ";
+                cin >> coverage;
+                cout << "Enter Premium: ";
+                cin >> premium;
+                accounts[i].hasInsurance = true;
+                accounts[i].coverageAmount = coverage;
+                accounts[i].premium = premium;
+                cout << "Insurance policy purchased successfully." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+void checkInsurancePolicy()
+{
+    string accNum;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i)
+    {
+        if (accounts[i].accountNumber == accNum)
+        {
+            if (accounts[i].hasInsurance)
+            {
+                cout << "Policy Number: " << accounts[i].policyNumber << endl;
+                cout << "Coverage Amount: " << accounts[i].coverageAmount << endl;
+                cout << "Premium: " << accounts[i].premium << endl;
+            }
+            else
+            {
+                cout << "No insurance policy purchased for this account." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+
+void makeInsuranceClaim()
+{
+    string accNum;
+    cout << "Enter Account Number: ";
+    cin >> accNum;
+    for (int i = 0; i < numAccounts; ++i)
+    {
+        if (accounts[i].accountNumber == accNum)
+        {
+            if (accounts[i].hasInsurance)
+            {
+                if (!accounts[i].hasClaimedInsurance)
+                {
+
+                    accounts[i].hasClaimedInsurance = true;
+                    cout << "Insurance claim processed successfully." << endl;
+                }
+                else
+                {
+                    cout << "Insurance claim already processed for this account." << endl;
+                }
+            }
+            else
+            {
+                cout << "No insurance policy purchased for this account." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Account not found." << endl;
+}
+void displayBankingMenu()
+{
+    login_system ls;
+    system("cls");
+    cout << "\n\t\t\t\t __________________________________________________\n";
+    cout << "\t\t\t\t|                                                  |";
+    cout << "\n\t\t\t\t|                 Banking Portal                   |" << endl;
+    cout << "\t\t\t\t|__________________________________________________|" << endl
+         << endl
+         << endl;
+    cout << "\t\t\t\t\tKindly select an option below:" << endl
+         << endl;
+    cout << "\t\t\t\t\t1. Create Savings Account" << endl
+         << endl;
+    cout << "\t\t\t\t\t2. Check Balance" << endl
+         << endl;
+    cout << "\t\t\t\t\t3. Deposit Money " << endl
+         << endl;
+    cout << "\t\t\t\t\t4. Transfer Money" << endl
+         << endl;
+    cout << "\t\t\t\t\t5. Apply for Loan" << endl
+         << endl;
+    cout << "\t\t\t\t\t6. Check Credit Score" << endl
+         << endl;
+    cout << "\t\t\t\t\t7. Purchase Insurance" << endl
+         << endl;
+    cout << "\t\t\t\t\t8. Check Insurance Policy" << endl
+         << endl;
+    cout << "\t\t\t\t\t9. Make Insurance Claim" << endl
+         << endl;
+    cout << "\t\t\t\t\t10. Exit" << endl;
+    cout << endl;
+    int choice;
+    do
+    {
+        cout << "\n\n";
+        cout << "\t\t\t\t\tKindly select an option below: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            createBankAccount();
+            break;
+        case 2:
+            checkBalance();
+            break;
+        case 3:
+            depositMoney();
+            break;
+        case 4:
+            transferMoney();
+            break;
+        case 5:
+            applyForLoan();
+            break;
+        case 6:
+            checkCreditScore();
+            break;
+        case 7:
+            purchaseInsurance();
+            break;
+        case 8:
+            checkInsurancePolicy();
+            break;
+        case 9:
+            makeInsuranceClaim();
+            break;
+        case 10:
+            cout << "\n\t\t\t\t\tLogging Out Of Banking Portal . . ." << endl
+                 << "\t\t\t\t\t";
+            ls.menu();
+        default:
+            cout << "\t\t\t\t\tInvalid Option\n\t\t\t\t\tTry Again." << endl;
+        }
+    } while (choice != 10);
+}
+void login_system::menu()
+{
+    system("cls");
+    cout << "\n\t\t\t\t __________________________________________________\n";
+    cout << "\t\t\t\t|                                                  |";
+    cout << "\n\t\t\t\t|          EMPLOYEE ACCOUNT MANAGMENT              |" << endl;
+    cout << "\t\t\t\t|__________________________________________________|" << endl
+         << endl
+         << endl;
+    cout << "\t\t\t\t\tKindly select an option below:" << endl
+         << endl;
+    cout << "\t\t\t\t\t1. Account Details" << endl
+         << endl;
+    cout << "\t\t\t\t\t2. Modify Account" << endl
+         << endl;
+    cout << "\t\t\t\t\t3. Open Banking Portal " << endl
+         << endl;
+    cout << "\t\t\t\t\t4. Change Password" << endl
+         << endl;
+    cout << "\t\t\t\t\t5. Delete Account" << endl
+         << endl;
+    cout << "\t\t\t\t\t6. Logout" << endl;
+    char option;
+    cout << endl
+         << "\t\t\t\t\t-> ";
+    cin >> option;
+    switch (option)
+    {
+    case '1':
+        details();
+        break;
+    case '2':
+        modify();
+        break;
+    case '3':
+        displayBankingMenu();
+        break;
+    case '4':
+        change_password();
+    case '5':
+        delete_account();
+    case '6':
+    {
+        cout << "\n\t\t\t\t\tLogging Out . . ." << endl
+             << "\t\t\t\t\t";
+        waiting();
+        homepage();
+    }
+    default:
+        cout << "\t\t\t\t\tInvalid Option\n\t\t\t\t\tTry Again." << endl;
+        Sleep(636);
+        menu();
+    }
+}
