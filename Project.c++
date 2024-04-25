@@ -918,64 +918,6 @@ void login_system::modify()
     system("pause");
     menu();
 }
-void login_system::modify()
-{
-    system("cls");
-    cout << "\n\t\t\t\t ___________________________________________\n";
-    cout << "\t\t\t\t|                                           |";
-    cout << "\n\t\t\t\t|              MODIFY ACCOUNT               |" << endl;
-    cout << "\t\t\t\t|___________________________________________|" << endl
-         << endl;
-    fstream file, file1;
-    file.open("files", ios::in);
-    file1.open("modify", ios::app | ios::out);
-    file >> fname >> password >> number >> email >> date >> month >> year;
-    while (!file.eof())
-    {
-        if (name == fname && pass == password)
-        {
-            cout << "\t\t\t\t\tEnter User_Name: " << endl
-                 << "\t\t\t\t\t";
-            cin >> fname;
-            cout << endl
-                 << "\t\t\t\t\tEnter your Date of Birth- " << endl
-                 << "\t\t\t\t\tDay :  ";
-            cin >> date;
-            cout << "\t\t\t\t\tMonth : ";
-            cin >> month;
-            cout << "\t\t\t\t\tYear :  ";
-            cin >> year;
-            cout << endl
-                 << "\t\t\t\t\tEnter your Contact Details: " << endl
-                 << "\t\t\t\t\tPhone Number : ";
-            cin >> number;
-            cout << endl
-                 << "\t\t\t\t\tEnter Email Address: " << endl
-                 << "\t\t\t\t\t";
-            cin >> email;
-            file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
-        }
-        else
-        {
-            file1 << fname << " " << password << " " << number << " " << email << " " << date << " " << month << " " << year << "\n";
-        }
-        file >> fname >> password >> number >> email >> date >> month >> year;
-    }
-    cout << endl
-         << "\t\t\t\t\tSaving new details, Please wait . . ." << endl
-         << "\t\t\t\t\t";
-    waiting();
-    file.close();
-    file1.close();
-    remove("files");
-    rename("modify", "files");
-    cout << endl
-         << "\n\t\t\t\t\tAccount Details Saved Successfully." << endl;
-    cout << "\t\t\t\t\tChanges will be shown after Re-login." << endl
-         << "\n\t\t\t\t\t";
-    system("pause");
-    menu();
-}
 void login_system::change_password()
 {
     system("cls");
